@@ -1,16 +1,20 @@
 import { Form, useLoaderData } from "react-router-dom";
-import { getContact } from "../contacts";
+import { getContact, deleteContact} from "../contacts";
 
 
 export async function loader({ params }) {
   const contact = await getContact(params.contactId);
-  return { contact };
+  return {contact}  
 }
+
 
 export default function Contact() {
 
   const { contact } = useLoaderData();
 
+  function handleSubmit(){
+     push('/edit')
+  }
   return (
     <div id="contact">
       <div>
