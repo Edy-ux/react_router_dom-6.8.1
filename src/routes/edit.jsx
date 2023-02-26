@@ -1,10 +1,11 @@
 import { Form, useLoaderData, redirect, useNavigate } from "react-router-dom";
-import { updateContact, getContact } from "../contacts";
+import { updateContact, getContact } from "../api/contacts";
 
 
 export async function action({ request, params }) {
   const formData = await request.formData();
-  const updates = Object.fromEntries(formData);
+  const data = Object.fromEntries(formData);
+  const updates = { ...data, fullName: data.first + ' ' + data.last }
   await updateContact(params.contactId, updates);
   return redirect(`/contacts/${params.contactId}`);
 }

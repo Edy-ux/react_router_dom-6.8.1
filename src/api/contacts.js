@@ -8,9 +8,10 @@ export async function getContacts(query) {
   let contacts = await localforage.getItem('contacts');
   if (!contacts) contacts = [];
   if (query) {
-    contacts = matchSorter(contacts, query, { keys: ['first', 'last'] });
+    contacts = matchSorter(contacts, query.trim(), { keys: ['fullName', 'first'] });
   }
   return contacts.sort(sortBy('last', 'createdAt'));
+
 }
 
 export async function createContact() {
@@ -30,7 +31,7 @@ export async function getContact(id) {
 
   return contact ?? null;
 }
-getContact('mlhuy61').then(contact => console.log(contact))
+
 
 export async function updateContact(id, updates) {
   await fakeNetwork();

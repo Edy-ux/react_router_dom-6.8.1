@@ -1,22 +1,22 @@
 import { Form, Link, redirect, useLoaderData, useNavigate } from "react-router-dom";
-import { getContact, updateContact } from "../contacts";
+import { getContact, updateContact } from "../api/contacts";
+import Favorite from "../components/Favorite";
 
 
 export async function loader({ params }) {
-
   const contact = await getContact(params.contactId);
   return { contact }
 }
 
-export async function action({ request, params }) {
-  const contact = await getContact(params.contactId);
-  const updateData = {...contact, favorite: !contact.favorite ?? true}
-  await updateContact(params.contactId, updateData)
-  return redirect(`/contacts/${params.contactId}`);
-}
+/*   export async function action({ request, params }) {
+    const contact = await getContact(params.contactId);
+    const updateData = {...contact, favorite: !contact.favorite ?? true}
+    await updateContact(params.contactId, updateData)
+    return redirect(`/contacts/${params.contactId}`);
+  } */
+
 export default function Contact() {
   const { contact } = useLoaderData();
-  console.log(contact)
   const navigate = useNavigate("")
 
   return (
@@ -71,25 +71,5 @@ export default function Contact() {
         </div>
       </div>
     </div>
-  );
-}
-
-function Favorite({ contact }) {
-  // yes, this is a `let`   for later
-  let favorite = contact.favorite;
-  return (
-    <Form method="post" action="favorite">
-      <button
-        name="favorite"
-        value={favorite ? "false" : "true"}
-        aria-label={
-          favorite
-            ? "Remove from favorites"
-            : "Add to favorites"
-        }
-      >
-        {favorite ? "★" : "☆"}
-      </button>
-    </Form>
   );
 }
