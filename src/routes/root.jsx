@@ -1,47 +1,67 @@
-import { Outlet, Link, useLoaderData, Form, redirect, NavLink, useNavigation } from "react-router-dom";
+import { Outlet, Link, useLoaderData, Form, redirect, NavLink, useNavigation, useSubmit } from "react-router-dom";
 import { getContacts, createContact } from "../contacts";
-import { Index as defaulRoutedoContact } from './index'
+import { useEffect, useState } from "react";
 
 
-export async function loader() {
-	const contacts = await getContacts();
-	return { contacts };
+//GET method
+export async function loader({ request }) {
+	const url = new URL(request.url);
+	const q = url.searchParams.get("q");
+	const contacts = await getContacts(q);
+	return { contacts, q };
 }
 
-export async function action() {
+//POST method
+export async function action({ request }) {
 	const contact = await createContact();
 	return redirect(`/contacts/${contact.id}/edit`);
 }
 
 export default function RootLayout() {
 
-	const { contacts } = useLoaderData();
-	const navegation = useNavigation();
-	console.log(contacts)
+	const { contacts, q } = useLoaderData();
+	const navigation = useNavigation();
+	const submit = useSubmit();
+	
+	const searching =
+		navigation.location &&
+		new URLSearchParams(navigation.location.search).has("q");
 
+	console.log(searching)
+
+	useEffect(() => {
+		document.getElementById("q").value = q;
+	  }, [q]);
+	  
 	return (
 		<>
 			<div id="sidebar">
 				<h1>React Router Contacts</h1>
 				<div>
-					<form id="search-form" role="search">
+					<Form id="search-form" role="search">
 						<input
 							id="q"
 							aria-label="Search contacts"
 							placeholder="Search"
 							type="search"
 							name="q"
+							className={searching ? "loading" : ""}
+							defaultValue={q}
+							onChange={(event) => {
+								submit(event.currentTarget.form)
+							}}
+
 						/>
 						<div
 							id="search-spinner"
 							aria-hidden
-							hidden={true}
+							hidden={!searching}
 						/>
 						<div
 							className="sr-only"
 							aria-live="polite"
 						></div>
-					</form>
+					</Form>
 					<Form method="post">
 						<button type="submit">New</button>
 					</Form>
@@ -83,10 +103,13 @@ export default function RootLayout() {
 
 				</nav>
 			</div>
-			<div id="detail" className={navigation.state === "loading" ? "loading" : ""}>
-
+			<div
+				id="detail"
+				className={
+					navigation.state === "loading" ? "loading" : ""
+				}
+			>
 				<Outlet />
-
 			</div>
 		</>
 	);

@@ -15,3 +15,7 @@ Quando o usuário clica no botão enviar:
 2.  O <Form action="destroy">corresponde à nova rota "contacts/:contactId/destroy"e envia a solicitação.
 
 3.  Após o redirecionamento da ação, o React Router chama todos os carregadores para os dados na página para obter os valores mais recentes (isso é "revalidação"). useLoaderDataretorna novos valores e faz com que os componentes sejam atualizados!
+
+## Dependecias 
+
+- match-sorter - npm: 

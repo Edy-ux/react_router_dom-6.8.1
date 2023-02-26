@@ -16,13 +16,8 @@ export async function loader({ params }) {
 
 export default function EditContact() {
 
-  const {contact} = useLoaderData();
-  const navegate = useNavigate("")
-
-  function handleClick({ params }) {
-  
-    navegate(`/contacts/${contact.id}`) 
-  }
+  const { contact } = useLoaderData();
+  const navigate = useNavigate("")
 
   return (
     <Form method="post" id="contact-form">
@@ -48,7 +43,7 @@ export default function EditContact() {
         <span>Twitter</span>
         <input
           type="text"
-          name="twitter"  
+          name="twitter"
           placeholder="@jack"
           defaultValue={contact?.twitter}
         />
@@ -73,7 +68,11 @@ export default function EditContact() {
       </label>
       <p>
         <button type="submit">Save</button>
-        <button onClick={handleClick} type="button">Cancel</button>
+        <button
+          onClick={() => navigate(-1)}
+          type="button">
+          Cancel
+        </button>
       </p>
     </Form>
   );

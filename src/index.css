@@ -237,9 +237,7 @@ i {
   color: white;
 }
 
-#sidebar nav a.pending {
-  color: hsl(224, 98%, 58%);
-}
+
 
 #detail {
   flex: 1;
