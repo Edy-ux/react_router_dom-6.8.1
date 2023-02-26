@@ -1,5 +1,6 @@
 import { Outlet, Link, useLoaderData, Form, redirect, NavLink, useNavigation } from "react-router-dom";
 import { getContacts, createContact } from "../contacts";
+import { Index as defaulRoutedoContact } from './index'
 
 
 export async function loader() {
@@ -12,11 +13,11 @@ export async function action() {
 	return redirect(`/contacts/${contact.id}/edit`);
 }
 
-export default function Root() {
+export default function RootLayout() {
 
 	const { contacts } = useLoaderData();
 	const navegation = useNavigation();
-
+	console.log(contacts)
 
 	return (
 		<>
@@ -79,10 +80,13 @@ export default function Root() {
 							<i>No contacts</i>
 						</p>
 					)}
+
 				</nav>
 			</div>
 			<div id="detail" className={navigation.state === "loading" ? "loading" : ""}>
+
 				<Outlet />
+
 			</div>
 		</>
 	);

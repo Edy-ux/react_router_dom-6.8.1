@@ -1,20 +1,16 @@
 import { Form, useLoaderData } from "react-router-dom";
-import { getContact, deleteContact} from "../contacts";
+import { getContact } from "../contacts";
 
 
 export async function loader({ params }) {
   const contact = await getContact(params.contactId);
-  return {contact}  
+  return { contact }
 }
 
 
 export default function Contact() {
-
   const { contact } = useLoaderData();
-
-  function handleSubmit(){
-     push('/edit')
-  }
+  
   return (
     <div id="contact">
       <div>
@@ -57,11 +53,7 @@ export default function Contact() {
             method="post"
             action="destroy"
             onSubmit={(event) => {
-              if (
-                !confirm(
-                  "Please confirm you want to delete this record."
-                )
-              ) {
+              if (!confirm("Please confirm you want to delete this record.")) {
                 event.preventDefault();
               }
             }}
@@ -75,7 +67,7 @@ export default function Contact() {
 }
 
 function Favorite({ contact }) {
-  // yes, this is a `let` for later
+  // yes, this is a `let`   for later
   let favorite = contact.favorite;
   return (
     <Form method="post">

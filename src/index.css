@@ -39,6 +39,7 @@ button {
   background-color: white;
   line-height: 1.5;
   margin: 0;
+  outline: none;
 }
 button {
   color: #3992ff;
@@ -108,11 +109,12 @@ form[action$="destroy"] button {
   border-right: solid 1px #e3e3e3;
   display: flex;
   flex-direction: column;
+
 }
 
 #sidebar > * {
-  padding-left: 2rem;
-  padding-right: 2rem;
+  /* padding and padding bottom */
+  padding: 0 2rem 0 2rem
 }
 
 #sidebar h1 {
@@ -123,7 +125,7 @@ form[action$="destroy"] button {
   margin: 0;
   padding: 1rem 2rem;
   border-top: 1px solid #e3e3e3;
-  order: 1;
+  order:2;
   line-height: 1;
 }
 
@@ -155,6 +157,7 @@ form[action$="destroy"] button {
   background-position: 0.625rem 0.75rem;
   background-size: 1rem;
   position: relative;
+ 
 }
 
 #sidebar > div form input[type="search"].loading {

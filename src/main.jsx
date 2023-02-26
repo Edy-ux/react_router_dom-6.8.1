@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider} from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 import Root, {
   loader as rootLoader,
@@ -10,11 +10,13 @@ import ErrorPage from './error-page';
 import Contact, {
   loader as contactLoader,
 } from "./routes/contact";
-import EditContact, { 
+import EditContact, {
   loader as ediloader,
   action as editAction,
 } from "./routes/edit";
 import { action as destroyAction } from "./routes/destroy";
+import { Index } from "./routes/";
+
 
 const router = createBrowserRouter([
   {
@@ -24,6 +26,7 @@ const router = createBrowserRouter([
     loader: rootLoader,
     action: rootAction,
     children: [
+      { index: true, element: <Index /> },
       {
         path: "contacts/:contactId",
         element: <Contact />,
@@ -38,6 +41,7 @@ const router = createBrowserRouter([
       {
         path: "contacts/:contactId/destroy",
         action: destroyAction,
+        errorElement: <div>Ops! Houve um erro. Volte e tente novamente</div>,
       }
     ],
   },
