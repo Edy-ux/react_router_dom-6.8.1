@@ -1,22 +1,30 @@
 import localforage from 'localforage';
 import { matchSorter } from 'match-sorter';
 import sortBy from 'sort-by';
-
+import crypo from 'crypto'
+import { fakeData } from './constantes/fakedb';
 
 export async function getContacts(query) {
-  await fakeNetwork(`getContacts:${query}`);
+  /* await fakeNetwork(`getContacts:${query}`); */
   let contacts = await localforage.getItem('contacts');
-  if (!contacts) contacts = [];
+  if (!contacts) contacts = []
   if (query) {
     contacts = matchSorter(contacts, query.trim(), { keys: ['fullName', 'first'] });
   }
-  return contacts.sort(sortBy('last', 'createdAt'));
+  return contacts
+  //.sort(sortBy('last', 'createdAt'));
 
+}
+export async function getContact(id) {
+  /* await fakeNetwork(`contact:${id}`); */
+  let contacts = await localforage.getItem('contacts');
+  let contact = contacts.find((contact) => contact.id === id);
+  return contact ?? [];
 }
 
 export async function createContact() {
   await fakeNetwork();
-  let id = Math.random().toString(36).substring(2, 9);
+  let id = crypto.randomUUID().toString()
   let contact = { id, createdAt: Date.now() };
   let contacts = await getContacts();
   contacts.unshift(contact);
@@ -24,17 +32,10 @@ export async function createContact() {
   return contact;
 }
 
-export async function getContact(id) {
-  await fakeNetwork(`contact:${id}`);
-  let contacts = await localforage.getItem('contacts');
-  let contact = contacts.find((contact) => contact.id === id);
-
-  return contact ?? null;
-}
 
 
 export async function updateContact(id, updates) {
-  await fakeNetwork();
+  /*  await fakeNetwork(); */
   let contacts = await localforage.getItem('contacts');
   let contact = contacts.find((contact) => contact.id === id);
   if (!contact) throw new Error('No contact found for', id);
@@ -54,9 +55,7 @@ export async function deleteContact(id) {
   return false;
 }
 
-function set(contacts) {
-  return localforage.setItem('contacts', contacts);
-}
+const set = async (contacts) => localforage.setItem('contacts', contacts);
 
 // fake a cache so we don't slow down stuff we've already seen
 let fakeCache = {};

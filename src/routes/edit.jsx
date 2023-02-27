@@ -2,18 +2,22 @@ import { Form, useLoaderData, redirect, useNavigate } from "react-router-dom";
 import { updateContact, getContact } from "../api/contacts";
 
 
-export async function action({ request, params }) {
-  const formData = await request.formData();
-  const data = Object.fromEntries(formData);
-  const updates = { ...data, fullName: data.first + ' ' + data.last }
-  await updateContact(params.contactId, updates);
-  return redirect(`/contacts/${params.contactId}`);
-}
-
 export async function loader({ params }) {
   const contact = await getContact(params.contactId);
   return { contact }
 }
+
+export async function action({ request, params }) {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+  const updates = {
+    ...data, twitter: `@${data.twitter.replace('@', '')}`,
+    fullName: data.first + ' ' + data.last
+  }
+  await updateContact(params.contactId, updates);
+  return redirect(`/contacts/${params.contactId}`);
+}
+
 
 export default function EditContact() {
 
@@ -37,6 +41,7 @@ export default function EditContact() {
           aria-label="Last name"
           type="text"
           name="last"
+          required
           defaultValue={contact?.last}
         />
       </p>
@@ -45,7 +50,8 @@ export default function EditContact() {
         <input
           type="text"
           name="twitter"
-          placeholder="@jack"
+          placeholder="@twitter"
+          required
           defaultValue={contact?.twitter}
         />
       </label>

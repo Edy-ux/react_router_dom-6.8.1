@@ -4,9 +4,7 @@ import { Form, useSubmit } from "react-router-dom";
 const Search = ({ query, searching}) => {
     const submit = useSubmit();
  
-
     return (
-
         <Form id="search-form">
             <input
                 id="q"

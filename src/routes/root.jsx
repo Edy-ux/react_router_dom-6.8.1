@@ -1,4 +1,4 @@
-import { Outlet, Link, useLoaderData, Form, redirect, NavLink, useNavigation, useSubmit } from "react-router-dom";
+import { Outlet, Link, useLoaderData, Form, redirect, NavLink, useNavigation} from "react-router-dom";
 import { getContacts, createContact } from "../api/contacts";
 import { useEffect } from "react";
 import Search from "../components/Search";
@@ -12,7 +12,7 @@ export async function loader({ request }) {
 }
 
 //POST method
-export async function action({ request }) {
+export async function action() {
 	const contact = await createContact();
 	return redirect(`/contacts/${contact.id}/edit`);
 }
