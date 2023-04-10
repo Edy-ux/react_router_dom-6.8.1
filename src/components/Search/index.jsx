@@ -1,6 +1,6 @@
 
 import { Form, useSubmit } from "react-router-dom";
-
+import './style.css'
 const Search = ({ query, searching}) => {
     const submit = useSubmit();
  
@@ -15,7 +15,7 @@ const Search = ({ query, searching}) => {
                 className={searching ? "loading" : ""}
                 defaultValue={query}
                 onChange={(event) => {
-                    const isFirstSearch = q == null;
+                    const isFirstSearch = query == null;
                     submit(event.currentTarget.form, {
                         replace: !isFirstSearch,
                     });
