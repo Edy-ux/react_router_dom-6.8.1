@@ -5,7 +5,7 @@ import crypo from 'crypto'
 import { fakeData } from './constantes/fakedb';
 
 export async function getContacts(query) {
-  /* await fakeNetwork(`getContacts:${query}`); */
+  await fakeNetwork(`getContacts:${query}`);
   let contacts = await localforage.getItem('contacts');
   if (!contacts) contacts = []
   if (query) {
@@ -16,11 +16,12 @@ export async function getContacts(query) {
 
 }
 export async function getContact(id) {
-  /* await fakeNetwork(`contact:${id}`); */
+  await fakeNetwork(`contact:${id}`);
   let contacts = await localforage.getItem('contacts');
   let contact = contacts.find((contact) => contact.id === id);
   return contact ?? [];
 }
+
 
 export async function createContact() {
   await fakeNetwork();
@@ -35,13 +36,13 @@ export async function createContact() {
 
 
 export async function updateContact(id, updates) {
-  /*  await fakeNetwork(); */
+   await fakeNetwork();
   let contacts = await localforage.getItem('contacts');
   let contact = contacts.find((contact) => contact.id === id);
   if (!contact) throw new Error('No contact found for', id);
   Object.assign(contact, updates);
   await set(contacts);
-  return contact;
+  
 }
 
 export async function deleteContact(id) {

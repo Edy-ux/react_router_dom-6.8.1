@@ -1,11 +1,10 @@
-
 import { Form, Link, useLoaderData, useNavigate } from "react-router-dom";
 import Favorite from "../Favorite";
 
 const Contact = () => {
 
     const { contact } = useLoaderData();
-    console.log(contact)
+  
     const navigate = useNavigate("")
 
     return (

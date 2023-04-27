@@ -9,7 +9,7 @@ const Search = ({ query, searching}) => {
             <input
                 id="q"
                 aria-label="Search contacts"
-                placeholder="Search"
+                placeholder="Buscar"
                 type="search"
                 name="q"
                 className={searching ? "loading" : ""}

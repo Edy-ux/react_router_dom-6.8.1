@@ -1,5 +1,5 @@
 import React from 'react';
-import { createRoutesFromElements, createBrowserRouter, Route } from "react-router-dom";
+import { createRoutesFromElements, createBrowserRouter } from "react-router-dom";
 import Root, { loader as rootLoader, action as rootAction } from "./root";
 import ErrorPage from '../error-page';
 import { loader as contactLoader } from "./contact";
@@ -84,10 +84,8 @@ export const router = createBrowserRouter(
           path="contacts/:contactId/favorite"
           action={favoriteAction}
         />
-
       </Route>
     </Route>
   )
 );
-
  */

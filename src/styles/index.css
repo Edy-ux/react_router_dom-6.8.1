@@ -85,6 +85,11 @@ form[action$="destroy"] button {
   color: #f44250;
 }
 
+#destroy {
+  color: #f44250;
+}
+
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -112,8 +117,7 @@ form[action$="destroy"] button {
 
 }
 
-#sidebar > * {
-  /* padding and padding bottom */
+#sidebar > * {  
   padding: 0 2rem 0 2rem
 }
 
@@ -146,7 +150,7 @@ form[action$="destroy"] button {
 }
 
 #sidebar > div form {
-  position: relative;
+  position: relative
 }
 
 #sidebar > div form input[type="search"] {
@@ -236,8 +240,6 @@ i {
   background: hsl(224, 98%, 58%);
   color: white;
 }
-
-
 
 #detail {
   flex: 1;
